@@ -1,11 +1,9 @@
 var apiURL = "http://127.0.0.1:8001/getData?id=19&nVals=10"
 
-//2020-02-11,19:53:06.004415+00:00
 var parseDate = d3.timeParse("%Y-%m-%d,%H:%M:%S");
 var times = 500; // gap in Milli Seconds;
 
 function startRefresh() {
-
 
   setTimeout(startRefresh,times);
 
@@ -60,5 +58,4 @@ d3.json(apiURL).get(function (error, data) {
                         .call(xAxis);
   chartGroup.append("g").attr("class", "y axis").call(yAxis);
 
-  //var max = d3.max(data, function(d){ return d.price; });
 });
