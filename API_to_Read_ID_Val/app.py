@@ -17,8 +17,8 @@ POSTGRES_DB = "APIdb"
 
 #DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 #app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
-basedir = "/mnt/5a576321-1b84-46e6-ba92-46de6b117d92/GitHub/Alpha_Project/Alpha_Project/DB_seed"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'planets.db')
+basedir = "C:/Users/nemslab4\Documents/GitHub/D3_DhashBoard/DB_seed"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.db')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
@@ -54,6 +54,10 @@ idvalue_schema = IdvalueSchema(many = True)
 
 
 # Routes
+@app.route('/')
+def index():
+    return "Allowed REST keys: /getIDs, /getData?id=2&nVals=10"
+
 @app.route('/getIDs')
 def getIDs():
     table = Idmetric.query.all()
@@ -77,5 +81,6 @@ def getData():
 
 
 if __name__ == '__main__':
-
+    import webbrowser
+    webbrowser.open("http://127.0.0.1:8001/")
     app.run(host='0.0.0.0', port=8001)

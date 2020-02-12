@@ -20,7 +20,7 @@ app = Flask(__name__)
 #app.debug = True
 #app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'planets.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.db')
 
 db = SQLAlchemy(app)
 allIds = [2,17,18,19]
@@ -113,4 +113,4 @@ def hello_world():
 if __name__ == '__main__':
     import webbrowser
     webbrowser.open("http://127.0.0.1:8000/")
-    app.run(port='8000')
+    app.run(host='0.0.0.0', port=8000)
