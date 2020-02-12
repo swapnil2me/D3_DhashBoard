@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Expanded Plot</title>
+  <link href="{{ url_for('static', filename='stylesheets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+  <script src="{{ url_for('static', filename = 'stylesheets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+  <body>
+     <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+     <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav">
+
+          <a class="nav-link navlogo text-center" href="#">
+            <img src="https://www.astrome.co/wp-includes/Webflow-images/logo-final-white-320x132.png">
+          </a>
+
+        <li class="nav-item">
+          <a class="nav-link sidefrst" href="#">
+            <span class="textside">  Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link sidesecnd" href="http://localhost:5006/timeSeriesBokeh">
+            <span class="textside"> List of Server</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sidesthrd" href="#">
+            <span class="textside">  Menu 2</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sidesforth" href="#">
+            <span class="textside">  Menu 3</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav2 ml-auto">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome Astrome</a>
+            <ul class="dropdown-menu">
+                <li class="resflset"><a href="#"><i class="fa fa-fw fa-cog"></i> Edit profile</a></li>
+                <li class="divider"></li>
+                <li class="resflset"><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+            </ul>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="row float-right">
+      <div class="dropdown ">
+        <form class="timeSelection" method="POST" action="/numberOfDataPoints-{{idList}}">
+           <select class="timeForm" id="timeDropdownSelector" type="text" name="timeDropdown" onchange="this.form.submit()">
+                <option disabled selected>Select a range</option>
+                <option id="seconds5" value="10">5 seconds</option>
+                <option id="seconds10" value="20">10 seconds</option>
+                <option id="minute" value="120">minute</option>
+                <option id="hour" value="7200">1 Hour</option>
+                <option id="Day" value="172800">1 Day</option>
+           </select>
+        </form>
+      </div>
+    </div>
+      <div class="row float-left">
+        <span class="border border-dark">
+          <div class="col-sm-4">
+          <h3>{{data}}</h3>
+
+          <img id="img" src="/idvalueExpand-{{idList}}.svg"
+              alt="{{idList}}"
+              height="300"
+              width="600"
+          >
+        </div>
+        </span>
+      </div>
+      
+    </div>
+  </div>
+    <script>
+      function refresh(node)
+          {
+             var times = 1000; // gap in Milli Seconds;
+
+             (function startRefresh()
+             {
+                var address;
+                if(node.src.indexOf('?')>-1)
+                 address = node.src.split('?')[0];
+                else
+                 address = node.src;
+                node.src = address+"?time="+new Date().getTime();
+
+                setTimeout(startRefresh,times);
+             })();
+
+          }
+          window.onload = function()
+          {
+            var node = document.getElementById('img');
+            refresh(node);
+            // you can refresh as many images you want just repeat above steps
+          }
+    </script>
+  </body>
+</html>
